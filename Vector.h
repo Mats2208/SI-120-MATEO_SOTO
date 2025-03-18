@@ -4,7 +4,7 @@
 using namespace std;
 
 template <typename T> class Vector {
-  private:
+  protected:
     T *items;
     int size;
     int capacity;
