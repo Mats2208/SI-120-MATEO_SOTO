@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void VerificarSimetria(Vector<int>* numeros) {
+bool VerificarSimetria(Vector<int>* numeros) {
     Vector<int> inverso;
     for (int i = numeros->getSize() - 1; i >= 0; i--) {
         inverso.pushBack(numeros->at(i));
@@ -17,9 +17,9 @@ void VerificarSimetria(Vector<int>* numeros) {
         }
     }
     if (contador != numeros->getSize()) {
-        cout << "El array no es simetrico" << endl;
+        return false;
     } else {
-        cout << "El array es simetrico" << endl;
+        return true;
     }
 }
 
@@ -39,7 +39,7 @@ int main() {
         numeros.pushBack(1);
         numeros.pushBack(2);
     }
-    VerificarSimetria(&numeros);
+    cout << "El vector es simetrico?" << VerificarSimetria(&numeros) << endl;
     cout << "La suma de todos los numeros pares es: " << SumaDePares(&numeros);
     return 0;
 }

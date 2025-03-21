@@ -1,16 +1,3 @@
-/*
-Inventario de Productos: Crea la clase Inventario, que gestione un vector de
-objetos de la clase Producto con los atributos:
-- id (numerico)
-- nombre
-- precio
-- cantidad en stock
-El sistema debe permitir:
-- Agregar y eliminar productos
-- Buscar productos por nombre.
-- Ordenar el inventario por precio
- */
-
 #include <iostream>
 #include "Vector.h"
 
@@ -74,24 +61,41 @@ class Productos{
 };
 
 class Inventario {
-  private:
-  Vector<Productos> producto;
-
-  public:
-  void Invetario(Productos _producto) {
-    producto.pushBack(_producto);
+private:
+  Vector<Productos> productos;
+public:
+  void agregarProducto(const Productos& product) {
+    productos.pushBack(product);
   }
 
   void EliminarProducto(int id) {
-    for (int i = 0; i < producto.getSize(); i++) {
-      if (producto.at(i).GetId() == id) {
-        cout << "Se encontro el producto" << endl;
+    for (int i = 0; i < productos.getSize(); i++) {
+      if (productos.at(i).GetId() == id) {
+        productos.set(i, 0);
+        cout << "Producto con ID = " << id << " eliminado." << endl;
+        return;
       }
     }
+    cout << "Producto con ID = " << id << " no encontrado." << endl;
+  }
+
+  void MostrarInventario() {
+    productos.print();
   }
 };
 
-int main(){
-  Inventario invetario(132, 25, 2, "Mantequilla");
+int main() {
+  Inventario inventario;
 
+  inventario.agregarProducto(Productos(1, 100.0, 10, "Lápiz"));
+  inventario.agregarProducto(Productos(2, 200.0, 5, "Cuaderno"));
+  inventario.agregarProducto(Productos(3, 300.0, 20, "Borrador"));
+
+  inventario.MostrarInventario();
+
+  inventario.EliminarProducto(2);
+
+  inventario.MostrarInventario();
+
+  return 0;
 }
