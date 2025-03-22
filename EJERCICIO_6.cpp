@@ -23,6 +23,7 @@ class Productos{
       string GetNombre(){
         return nombre;
       }
+
       void SetId(int _id){
         if(id < 0){
           id = 0;
@@ -60,42 +61,8 @@ class Productos{
       }
 };
 
-class Inventario {
-private:
-  Vector<Productos> productos;
-public:
-  void agregarProducto(const Productos& product) {
-    productos.pushBack(product);
-  }
-
-  void EliminarProducto(int id) {
-    for (int i = 0; i < productos.getSize(); i++) {
-      if (productos.at(i).GetId() == id) {
-        productos.set(i, 0);
-        cout << "Producto con ID = " << id << " eliminado." << endl;
-        return;
-      }
-    }
-    cout << "Producto con ID = " << id << " no encontrado." << endl;
-  }
-
-  void MostrarInventario() {
-    productos.print();
-  }
-};
-
 int main() {
-  Inventario inventario;
-
-  inventario.agregarProducto(Productos(1, 100.0, 10, "Lápiz"));
-  inventario.agregarProducto(Productos(2, 200.0, 5, "Cuaderno"));
-  inventario.agregarProducto(Productos(3, 300.0, 20, "Borrador"));
-
-  inventario.MostrarInventario();
-
-  inventario.EliminarProducto(2);
-
-  inventario.MostrarInventario();
+  cout << "Prueba" << endl;
 
   return 0;
 }
