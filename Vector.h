@@ -72,6 +72,15 @@ template <typename T> class Vector {
         capacity = newCapacity;
     }
 
+    void removeAt(int index) { //Mas facil su implementacion desde aqui (Tarea N6)
+        if (index < 0 || index >= size) {
+            throw out_of_range("Índice fuera de rango");
+        }
+        for (int i = index; i < size - 1; ++i) {
+            items[i] = items[i + 1];
+        }
+        size--;
+    }
     void print()
     {
         for (int i = 0; i < size; i++)
