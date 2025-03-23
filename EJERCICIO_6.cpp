@@ -97,7 +97,7 @@ public:
     }
   }
 
-  inventario SortByPrice() {
+  void SortByPrice() {
     Vector<Productos> aux;
     for (int i = 0; i < productos.getSize(); i++) {
       aux.pushBack(productos.at(i));
@@ -112,11 +112,9 @@ public:
         }
       }
     }
-    inventario inventarioOrdenado;
     for (int i = 0; i < aux.getSize(); i++) {
-      inventarioOrdenado.AgregarProductos(aux.at(i));
+      productos.set(i, aux.at(i));
     }
-    return inventarioOrdenado;
   }
 };
 
@@ -154,8 +152,8 @@ int main() {
   chest.BusquedaPorNombre("Rastrillo").print(); //Lo hago funcion de PRODUCTOS porque puede llegar a ser mas util, y solo uso .print() para que salga en consola
 
 
-  cout << "Ordenamiento Por precio "<< endl;
-  inventario ordenado = chest.SortByPrice(); // Ahora devuelve un inventario
-  ordenado.MostrarProductos();
+  cout << "Invetario ordenado por precio de menor a mayor "<< endl;
+  chest.SortByPrice(); // Ahora devuelve un inventario'
+  chest.MostrarProductos();
   return 0;
 }
