@@ -1,26 +1,23 @@
 #include <iostream>
 #include "Vector.h"
-#include <string>
-#include <vector>
+
 using namespace std;
 
 class Estudiante {
 private:
     int registro;
     string nombre;
-    Vector<float> calificaciones;
+    Vector<double> v1;
+    public:
 
-public:
-    Estudiante(int _registro = 0, string nombre = "", Vector<float> _calificaciones = 0) {
+    Estudiante(string _nombre = "Desconocido", int _registro = 0) {
+        SetNombre(_nombre);
         SetRegistro(_registro);
-        SetNombre(nombre);
     }
 
     void SetRegistro(int _registro) {
         if (_registro > 0) {
             registro = _registro;
-        } else {
-            registro = 0;
         }
     }
 
@@ -28,6 +25,9 @@ public:
         return registro;
     }
 
+    int GetIndex() {
+        return v1.getSize();
+    }
     void SetNombre(string _nombre) {
         nombre = _nombre;
     }
@@ -36,73 +36,89 @@ public:
         return nombre;
     }
 
-    void SetCalificaciones(float _calificacion) {
-        if (_calificacion >= 0 && _calificacion <= 100) {
-            calificaciones.pushBack(_calificacion);
-        } else {
-            calificaciones.pushBack(0);
-        }
+    void AgregarNotas(double notas) {
+        v1.pushBack(notas);
     }
 
-    void SetArrayCalificaciones(Vector<float>* _calificaciones) {
-        for (int i = 0; i < _calificaciones->getSize(); i++) {
-            calificaciones.pushBack(_calificaciones->at(i));
+    double CalcularPromedio() {
+        double promedio = 0, suma = 0;
+        for (int i = 0; i < v1.getSize(); i++) {
+            suma += v1.at(i);
         }
+        promedio = suma / v1.getSize();
+        return promedio;
+    }
+    void MostrarInformacion() {
+        cout << "nombre: " << GetNombre()<< endl;
+        cout << "registro: " << registro << endl;
+        cout << "notas: ";
+        v1.print();
     }
 
-    Vector<float>* GetArrayCalificaciones() {
-        return &calificaciones;
-    }
-
-    void MostrarCalificaciones() {
-        cout << "Registro: " << GetRegistro() << endl;
-        cout << "Nombre: " << GetNombre() << endl;
-        cout << "Calificaciones: " << endl;
-        for (int i = 0; i < calificaciones.getSize(); i++) {
-            cout << calificaciones.at(i) <<" ";
-        }
-        cout << endl;
-    }
 };
 
 class GestionAcademica {
     private:
-    Vector<Estudiante> estudiantes;
+    Vector<Estudiante> Alumnos;
     public:
-
-    void AgregarEstudiantes(Estudiante* estu) {
-        Estudiante aux;
-        aux.SetRegistro(estu->GetRegistro());
-        aux.SetNombre(estu->GetNombre());
-        aux.SetArrayCalificaciones(estu->GetArrayCalificaciones());
-        estudiantes.pushBack(aux);
+    void AgregarAlumnos( Estudiante a) {
+        Alumnos.pushBack(a);
     }
 
-    void MostrarEstudiantes() {
-        for (int i = 0; i < estudiantes.getSize(); i++) {
-            estudiantes.at(i).MostrarCalificaciones();
+    void MostrarAlumnos() {
+        for (int i = 0; i < Alumnos.getSize();i++) {
+            Alumnos.at(i).MostrarInformacion();
         }
+    }
+
+    double CalcularPromedioEstudiante(Estudiante* a) {
+        return a->CalcularPromedio();
+    }
+
+    Vector<double> CalcularPromedioDeTodos() {
+        Vector<double> promedio;
+        for (int i = 0; i < Alumnos.getSize();i++) {
+            promedio.pushBack(Alumnos.at(i).CalcularPromedio());
+        }
+        return promedio;
+    }
+
+    double PromedioGeneral() {
+        double promedio = 0, suma = 0;
+        for (int i = 0; i < Alumnos.getSize();i++) {
+            suma += Alumnos.at(i).CalcularPromedio();
+        }
+        promedio = suma / Alumnos.getSize();
+        return promedio;
     }
 };
 int main() {
-    Estudiante estudiante(2024111556, "Mateo");
-    estudiante.SetCalificaciones(100);
-    estudiante.SetCalificaciones(80);
-    estudiante.SetCalificaciones(50);
-    estudiante.SetCalificaciones(85);
-    estudiante.SetCalificaciones(70);
-    Estudiante estudiante_2(2024112170, "MAB");
-    estudiante_2.SetCalificaciones(100);
-    estudiante_2.SetCalificaciones(80);
-    estudiante_2.SetCalificaciones(50);
-    estudiante_2.SetCalificaciones(85);
-    estudiante_2.SetCalificaciones(70);
+    Estudiante alumno1("Mateo", 2024111556);
+    alumno1.AgregarNotas(55);
+    alumno1.AgregarNotas(70);
+    alumno1.AgregarNotas(75);
+    alumno1.AgregarNotas(36);
 
-    GestionAcademica Admin;
+    Estudiante alumno2("Juan", 2024112170);
+    alumno2.AgregarNotas(23);
+    alumno2.AgregarNotas(57);
+    alumno2.AgregarNotas(23);
+    alumno2.AgregarNotas(47);
 
-    Admin.AgregarEstudiantes(&estudiante);
-    Admin.AgregarEstudiantes(&estudiante_2);
+    GestionAcademica administracion;
+    administracion.AgregarAlumnos(alumno1);
+    administracion.AgregarAlumnos(alumno2);
 
-    Admin.MostrarEstudiantes();
-    return 0;
+    //Promedio de cada estudiante
+    cout << "El promedio del estudiante N1 es: " <<administracion.CalcularPromedioEstudiante(&alumno1) << endl;
+    cout << "El promedio del estudiante N2 es: " <<administracion.CalcularPromedioEstudiante(&alumno2) << endl;
+
+    //Promedio de TODOS los estudiantes
+    cout << "El promedio de todos los estudiantes almacenados en un vector es: " << endl;
+    administracion.CalcularPromedioDeTodos().print();
+
+    //Obtener Promedio General de la clase
+    cout << "El promedio General de toda la clase es de: " << administracion.PromedioGeneral() << endl;
+
+
 }

@@ -20,6 +20,29 @@ template <typename T> class Vector {
         delete[] items;
     }
 
+    //Constructores requeridos para ACT 7
+    Vector(const Vector& other) : size(other.size), capacity(other.capacity) {
+        items = new T[capacity];
+        for (int i = 0; i < size; ++i) {
+            items[i] = other.items[i];
+        }
+    }
+
+    // 4. Operador de asignación (NUEVO)
+    Vector& operator=(const Vector& other) {
+        if (this != &other) {
+            delete[] items;
+            size = other.size;
+            capacity = other.capacity;
+            items = new T[capacity];
+            for (int i = 0; i < size; ++i) {
+                items[i] = other.items[i];
+            }
+        }
+        return *this;
+    }
+    //Nuevos Constructores
+
     void pushBack(const T &value)
     {
         if (size == capacity)

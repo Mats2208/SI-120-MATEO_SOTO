@@ -39,7 +39,7 @@ int main() {
         numeros.pushBack(1);
         numeros.pushBack(2);
     }
-    cout << "El vector es simetrico?" << VerificarSimetria(&numeros) << endl;
+    cout << "El vector es simetrico? " << VerificarSimetria(&numeros) << endl;
     cout << "La suma de todos los numeros pares es: " << SumaDePares(&numeros);
     return 0;
 }
