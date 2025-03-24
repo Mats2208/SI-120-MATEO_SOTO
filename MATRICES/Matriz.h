@@ -50,10 +50,12 @@ public:
     {
         for (int i = 0; i < ROWS; i++)
         {
+            cout << "|";
             for (int j = 0; j < COLS; j++)
             {
                 cout << m[i][j] << " ";
             }
+            cout << "|";
             cout << endl;
         }
     }
