@@ -82,7 +82,7 @@ El proyecto está dividido en las siguientes partes:
 1. Clona el repositorio:
 
     ```bash
-    git clone [https://github.com/Mats2208/SI-120-MATEO_SOTO.git]
+    git clone https://github.com/Mats2208/SI-120-MATEO_SOTO.git
     ```
 
 2. Asegúrate de tener configurado tu entorno de desarrollo con el compilador adecuado para C++.
